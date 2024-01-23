@@ -1,36 +1,47 @@
 import { useState } from "react";
 import NewTask from "./components/NewTask.jsx";
 import NoTaskSelected from "./components/NoTaskSelected.jsx";
-import Sidebar from "./components/SideBar.jsx";
-
-
+import Sidebar from "./components/Sidebar.jsx";
 
 function App() {
-  const[taskState , setTaskState]=useState({
+  const [taskState, setTaskState] = useState({
     selectedTaskId: undefined,
-    tasks:[]
+    tasks: [],
   });
 
-  function handleStartAddTask(){
-    setTaskState(prevState=>{
+  function handleStartAddTask() {
+    setTaskState((prevState) => {
       return {
         ...prevState,
-        selectedTaskId: null
+        selectedTaskId: null,
       };
     });
   }
 
-  let content ; 
+  function handleAddTask(taskData) {
+    setTaskState((prevState) => {
+      const newTask = {
+        ...taskData,
+        id: Math.random(),
+      };
+      return {
+        ...prevState,
+        tasks: [...prevState.tasks, newTask],
+      };
+    });
+  }
+
+  let content;
 
   if (taskState.selectedTaskId === null) {
-    content = <NewTask />
-  } else if (taskState.selectedTaskId === undefined){
-    content=<NoTaskSelected onStartAddTask={handleStartAddTask}/>
+    content = <NewTask onAdd={handleAddTask} />;
+  } else if (taskState.selectedTaskId === undefined) {
+    content = <NoTaskSelected onStartAddTask={handleStartAddTask} />;
   }
 
   return (
     <main className=" h-screen my-8 flex gap-8">
-      <Sidebar onStartAddTask={handleStartAddTask}/>
+      <Sidebar onStartAddTask={handleStartAddTask} />
       {content}
     </main>
   );
