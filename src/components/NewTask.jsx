@@ -1,7 +1,10 @@
 import { useRef } from "react";
 import Input from "./Input.jsx";
+import Modal from "./Modal.jsx";
 
 export default function NewTask({ onAdd }) {
+  
+
   const title = useRef();
   const description = useRef();
   const startDate = useRef();
@@ -12,18 +15,27 @@ export default function NewTask({ onAdd }) {
     const enteredDescription = description.current.value;
     const enteredStartDate = startDate.current.value;
     const enteredEndDate = endDate.current.value;
-    //validation
 
-    onAdd({
-      title: enteredTitle,
-      description: enteredDescription,
-      startDate: enteredStartDate,
-      endDate: enteredEndDate,
-    });
+    if (
+      enteredTitle.trim() === "" ||
+      enteredDescription.trim() === "" ||
+      enteredStartDate.trim() === "" ||
+      enteredEndDate.trim() === ""
+    ){
+      //show modal
+    }
+      onAdd({
+        title: enteredTitle,
+        description: enteredDescription,
+        startDate: enteredStartDate,
+        endDate: enteredEndDate,
+      });
   }
 
   return (
-    <div className=" w-[35rem] mt-36 ml-80">
+    <>
+    <Modal />
+    <div className=" w-[35rem] mt-32 mx-44">
       <menu className=" flex items-center justify-end gap-4 my-4">
         <li>
           <button className=" text-stone-300 hover:text-stone-50">
@@ -46,5 +58,6 @@ export default function NewTask({ onAdd }) {
         <Input type="date" ref={endDate} label="End Date" />
       </div>
     </div>
+    </>
   );
 }

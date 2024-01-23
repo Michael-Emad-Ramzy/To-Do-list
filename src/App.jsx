@@ -20,12 +20,14 @@ function App() {
 
   function handleAddTask(taskData) {
     setTaskState((prevState) => {
+      const taskId = Math.random()
       const newTask = {
         ...taskData,
-        id: Math.random(),
+        id: taskId,
       };
       return {
         ...prevState,
+        selectedTaskId: undefined ,
         tasks: [...prevState.tasks, newTask],
       };
     });
@@ -41,7 +43,7 @@ function App() {
 
   return (
     <main className=" h-screen my-8 flex gap-8">
-      <Sidebar onStartAddTask={handleStartAddTask} />
+      <Sidebar onStartAddTask={handleStartAddTask} tasks={taskState.tasks}/>
       {content}
     </main>
   );
