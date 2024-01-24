@@ -74,7 +74,7 @@ function App() {
         onStartAddTask={handleStartAddTask}
         tasks={taskState.tasks}
         onSelectTask={handleSelectTask}
-        selectedTaskId={taskState.tasks.id}
+        selectedTaskId={taskState.selectedTaskId}
       />
       {content}
     </main>
