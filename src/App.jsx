@@ -52,15 +52,15 @@ function App() {
     });
   }
 
-  //this const selectedTask return the id of the task by finding in the state(taskState)access 
-  //to tasks array and find in every task of the tasks by task.id if there is a similar id 
+  //this const selectedTask return the id of the task by finding in the state(taskState)access
+  //to tasks array and find in every task of the tasks by task.id if there is a similar id
   //as the selectedTaskId in state(taskState object).
-  const selectedTask = taskState.tasks.find(task => task.id ===taskState.selectedTaskId)
-  //find() is a build in function as map() it return the element if the argument return true. 
+  const selectedTask = taskState.tasks.find(
+    (task) => task.id === taskState.selectedTaskId
+  );
+  //find() is a build in function as map() it return the element if the argument return true.
 
-
-
-  let content = <SelectedTask task={selectedTask}/>;
+  let content = <SelectedTask task={selectedTask} />;
 
   if (taskState.selectedTaskId === null) {
     content = <NewTask onAdd={handleAddTask} onCancel={handleCancelAddTask} />;
