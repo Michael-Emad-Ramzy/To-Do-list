@@ -8,7 +8,32 @@ function App() {
   const [taskState, setTaskState] = useState({
     selectedTaskId: undefined,
     tasks: [],
+    notes: [],
   });
+
+  function handleAddNotes(text) {
+    setTaskState((prevState) => {
+      const NoteId = Math.random();
+      const newNote = {
+        text: text,
+        taskId: prevState.selectedTaskId,
+        id: NoteId,
+      };
+      return {
+        ...prevState,
+        notes: [newNote, ...prevState.notes],
+      };
+    });
+  }
+
+  function handleDeleteNotes(id) {
+    setTaskState((prevState) => {
+      return {
+        ...prevState,
+        notes: prevState.notes.filter((note) => note.id !== id),
+      };
+    });
+  }
 
   function handleSelectTask(id) {
     setTaskState((prevState) => {
@@ -73,7 +98,13 @@ function App() {
   //find() is a build in function as map() it return the element if the argument return true.
 
   let content = (
-    <SelectedTask task={selectedTask} onDelete={handleDeleteTask} />
+    <SelectedTask
+      task={selectedTask}
+      onDelete={handleDeleteTask}
+      onAddNote={handleAddNotes}
+      onDeleteNote={handleDeleteNotes}
+      notes={taskState.notes}
+    />
   );
 
   if (taskState.selectedTaskId === null) {

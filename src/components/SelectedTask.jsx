@@ -1,6 +1,13 @@
 import Button from "./Buttons.jsx";
+import Notes from "./Notes.jsx";
 
-export default function SelectedTask({ task ,onDelete}) {
+export default function SelectedTask({
+  task,
+  onDelete,
+  onAddNote,
+  onDeleteNote,
+  notes
+}) {
   //const to formatted date to be more readable
   const formattedStarteDate = new Date(task.startDate).toLocaleDateString(
     "en-US",
@@ -26,9 +33,7 @@ export default function SelectedTask({ task ,onDelete}) {
           <h1 className="text-5xl font-bold text-[#296d9b] uppercase mb-2">
             {task.title}
           </h1>
-          <Button onClick={onDelete}>
-            Delete
-          </Button>
+          <Button onClick={onDelete}>Delete</Button>
         </div>
         <p className="mb-1 text-stone-400/50">
           Task starts in: {formattedStarteDate}
@@ -36,9 +41,11 @@ export default function SelectedTask({ task ,onDelete}) {
         <p className="mb-8 text-stone-400/50">
           Your deadline in: {formattedEndDate}
         </p>
-        <p className="text-[#91c7ea] whitespace-pre-wrap">{task.description}</p>
+        <p className="text-[#91c7ea] whitespace-pre-wrap mb-16">
+          {task.description}
+        </p>
       </header>
-      tasks
+      <Notes onAdd={onAddNote} onDelete={onDeleteNote} notes={notes} />
     </div>
   );
 }
