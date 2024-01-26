@@ -52,6 +52,18 @@ function App() {
     });
   }
 
+  function handleDeleteTask() {
+    setTaskState((prevState) => {
+      return {
+        ...prevState,
+        selectedTaskId: undefined,
+        tasks: prevState.tasks.filter(
+          (task) => task.id !== prevState.selectedTaskId
+        ),
+      };
+    });
+  }
+
   //this const selectedTask return the id of the task by finding in the state(taskState)access
   //to tasks array and find in every task of the tasks by task.id if there is a similar id
   //as the selectedTaskId in state(taskState object).
@@ -60,7 +72,9 @@ function App() {
   );
   //find() is a build in function as map() it return the element if the argument return true.
 
-  let content = <SelectedTask task={selectedTask} />;
+  let content = (
+    <SelectedTask task={selectedTask} onDelete={handleDeleteTask} />
+  );
 
   if (taskState.selectedTaskId === null) {
     content = <NewTask onAdd={handleAddTask} onCancel={handleCancelAddTask} />;
